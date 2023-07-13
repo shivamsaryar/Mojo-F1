@@ -1,4 +1,2 @@
-# mojo-formula1
-
-Open Google Cloud Console project
-Go to API & Services -> Library and enable Google Sheets and BigQuery APIs 
+# Mojo F1 - Formula1 data project
+The csv files have been downloaded from kaggle
