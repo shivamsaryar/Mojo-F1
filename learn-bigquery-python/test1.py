@@ -10,7 +10,7 @@ sql_query = """
     SELECT *
     FROM `mojo-f1.f1_dbt.seasons`
     LIMIT 10 
-    """
+"""
 query_job = bq_client.query(sql_query)
 
 print("Year  |  Wiki")
