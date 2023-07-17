@@ -8,7 +8,7 @@ bq_client = bigquery.Client()
 
 sql_query = """ 
     SELECT *
-    FROM `mojo-f1.f1_dbt.seasons`
+    FROM `mojo-f1.f1_raw.seasons`
     LIMIT 10 
 """
 query_job = bq_client.query(sql_query)
