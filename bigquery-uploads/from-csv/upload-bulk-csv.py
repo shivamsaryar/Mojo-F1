@@ -2,6 +2,7 @@ from google.cloud import bigquery
 import os
 from pathlib import Path
 import time
+import google.auth
 
 import configSchema
 
@@ -44,11 +45,18 @@ def upload_csv(client, table_ref, csv_file):
 project_id = 'mojo-f1'
 dataset_id = 'f1_raw_csv'
 
-bigquery_credentials = '/Users/shivamsaryar/Documents/GitHub/MojoF1/mojo-f1-service-account.json'
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = bigquery_credentials
-bq_client = bigquery.Client()
+# Create credentials with Drive & BigQuery API scopes.
+# Both APIs must be enabled for your project before running this code.
+credentials, project = google.auth.default (
+    scopes=[
+        "https://www.googleapis.com/auth/bigquery"
+    ]
+)
 
-data_file_folder = Path('/Users/shivamsaryar/Documents/GitHub/MojoF1/data-files-2023')
+# Create a BigQuery client object (change project if required)
+bq_client = bigquery.Client(credentials=credentials, project='mojo-f1')
+
+data_file_folder = Path('/Users/shivamsaryar/Documents/GitHub/Mojo-F1/bigquery-uploads/source-files/july-2023')
 
 for file in os.listdir(data_file_folder):
     if file.endswith('.csv'):
