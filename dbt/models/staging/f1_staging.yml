@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: stg_circuits
+    description: Staging table for Circuits
+  - name: stg_constructor_results
+    description: Staging table for Constructor Results
