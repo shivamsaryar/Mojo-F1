@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: f1_raw_apps_script
+    description: A collection of 14 Google Sheets external tables (files available on Kaggle.com), which have since been uploaded to BigQuery via Apps Script.
+    database: mojo-f1
+    schema: f1_raw_apps_script
+    tables:
+      - name: circuits
+      - name: constructor_results
+      - name: constructor_standings
+      - name: constructors
+      - name: driver_standings
+      - name: drivers
+      - name: lap_times
+      - name: pit_stops
+      - name: qualifying
+      - name: races
+      - name: results
+      - name: seasons
+      - name: sprint_results
+      - name: status

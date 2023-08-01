@@ -5,16 +5,16 @@ select
     constructorId as constructor_id,
     number as car_number,
     grid as grid_position,
-    position as position,
+    cast(position as int64) as final_position,
     positionText as position_text,
     positionOrder as position_order,
     points,
     laps,
-    time,
+    time as race_duration,
     milliseconds,
     fastestLap as fastest_lap_number,
     rank as fastest_lap_rank,
     fastestLapTime as fastest_lap_time,
     fastestLapSpeed as fastest_lap_top_speed,
     statusId as status_id
-from {{ source('f1_raw_csv', 'results') }}
+from {{ source('f1_raw_csv', 'results') }} 

@@ -18,4 +18,3 @@ select
     sprint_date,
     sprint_time
 from {{ source('f1_raw_csv', 'races') }}
-limit 10
