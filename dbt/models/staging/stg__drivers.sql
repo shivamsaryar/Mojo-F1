@@ -5,7 +5,7 @@ select
     code as driver_code,
     forename as first_name,
     surname as last_name,
-    dob,
+    cast(dob as date) as dob,
     nationality,
     url
 from {{ source('f1_raw_csv', 'drivers') }}
