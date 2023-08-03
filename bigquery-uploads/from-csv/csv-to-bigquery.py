@@ -4,7 +4,9 @@ from pathlib import Path
 import time
 import google.auth
 
-import schemaConfig_csv
+# import schemaConfig_csv
+# import schemaConfig_defined
+import schemaConfig_strings
 
 def table_reference(project_id, dataset_id, table_id):
     dataset_ref = bigquery.DatasetReference(project_id, dataset_id)
@@ -17,7 +19,7 @@ def delete_dataset_tables(project_id, dataset_id):
         bq_client.delete_table(table)
     print('Tables deleted.')
 
-def upload_csv(client, table_ref, csv_file):
+def upload_csv(client, table_name, table_ref, csv_file):
     load_job_config = bigquery.LoadJobConfig(
         source_format = bigquery.SourceFormat.CSV,
         skip_leading_rows = 1,
@@ -26,7 +28,8 @@ def upload_csv(client, table_ref, csv_file):
         write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE
     )
     
-    load_job_config.schema = schemaConfig_csv.create_schema(csv_file)
+    # load_job_config.schema = schemaConfig_csv.create_schema(csv_file)
+    load_job_config.schema = schemaConfig_strings.getSchema(table_name)
     
     with open(csv_file, 'rb') as source_file:
         upload_job = bq_client.load_table_from_file(
@@ -37,7 +40,7 @@ def upload_csv(client, table_ref, csv_file):
         )
 
 project_id = 'mojo-f1'
-dataset_id = 'f1_raw_csv'
+dataset_id = 'raw_csv_load'
 
 # Create credentials with Drive & BigQuery API scopes.
 # Both APIs must be enabled for your project before running this code.
@@ -66,6 +69,6 @@ for file in os.listdir(data_file_folder):
         table_ref = project_id + "." + dataset_id + "." + table_name
         print("table_ref: ", table_ref)
         
-        upload_csv(bq_client, table_ref, csv_file)
+        upload_csv(bq_client, table_name, table_ref, csv_file)
 
-print("------CSV files uploaded successfully.------")    
+print("------CSV files uploaded successfully.------")
