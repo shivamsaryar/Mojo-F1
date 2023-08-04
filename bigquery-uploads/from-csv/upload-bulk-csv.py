@@ -43,7 +43,7 @@ def upload_csv(client, table_ref, csv_file):
     #print(upload_job.result())
 
 project_id = 'mojo-f1'
-dataset_id = 'f1_raw_csv'
+dataset_id = 'f1_raw_from_csv'
 
 # Create credentials with Drive & BigQuery API scopes.
 # Both APIs must be enabled for your project before running this code.
@@ -56,7 +56,7 @@ credentials, project = google.auth.default (
 # Create a BigQuery client object (change project if required)
 bq_client = bigquery.Client(credentials=credentials, project='mojo-f1')
 
-data_file_folder = Path('/Users/shivamsaryar/Documents/GitHub/Mojo-F1/bigquery-uploads/source-files/july-2023')
+data_file_folder = Path('/Users/shivamsaryar/Documents/GitHub/Mojo-F1/bigquery-uploads/data-source-files/csv-july-2023')
 
 for file in os.listdir(data_file_folder):
     if file.endswith('.csv'):
