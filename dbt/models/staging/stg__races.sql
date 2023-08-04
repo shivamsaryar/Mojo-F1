@@ -1,0 +1,20 @@
+select
+    raceId as race_id,
+    cast(year as int64) as year,
+    cast(round as int64) as round,
+    circuitId as circuit_id,
+    name,
+    cast(date as date) as date,
+    time,
+    url,
+    fp1_date,
+    fp1_time,
+    fp2_date,
+    fp2_time,
+    fp3_date,
+    fp3_time,
+    quali_date,
+    quali_time,
+    sprint_date,
+    sprint_time
+from {{ source('f1_raw', 'races') }}
