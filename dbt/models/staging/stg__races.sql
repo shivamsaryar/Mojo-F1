@@ -1,12 +1,12 @@
 select
     raceId as race_id,
-    year,
-    round,
+    cast(year as int64) as year,
+    cast(round as int64) as round,
     circuitId as circuit_id,
-    name as race_name,
+    name,
     cast(date as date) as date,
-    cast(time) as string,
-    url as wiki_url,
+    time,
+    url,
     fp1_date,
     fp1_time,
     fp2_date,
@@ -17,4 +17,4 @@ select
     quali_time,
     sprint_date,
     sprint_time
-from {{ source('f1_raw_csv', 'races') }}
+from {{ source('f1_raw', 'races') }}

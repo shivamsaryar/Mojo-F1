@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: f1_raw_csv
+  - name: f1_raw
     description: A collection of 14 csv files available on Kaggle.com, which have since been uploaded to BigQuery using Python scripts.
     database: mojo-f1
     schema: raw_csv_load

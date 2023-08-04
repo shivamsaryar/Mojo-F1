@@ -7,6 +7,6 @@ select
     lat as latitude,
     lng as longitude,
     alt as altitude,
-    url as wiki_url
+    url
 from
-    {{ source('f1_raw_csv', 'circuits') }}
+    {{ source('f1_raw', 'circuits') }}

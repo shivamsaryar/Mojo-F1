@@ -4,4 +4,4 @@ select
     name,
     nationality,
     url
-from {{ source('f1_raw_csv', 'constructors') }}
+from {{ source('f1_raw', 'constructors') }}

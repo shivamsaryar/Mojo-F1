@@ -1,9 +1,9 @@
 select 
     raceId as race_id,
     driverId as driver_id,
-    lap,
-    position,
+    cast(lap as int64) as lap_number,
+    position as final_position,
     time,
-    milliseconds
+    cast(milliseconds as int64) as milliseconds
 from
-    {{ source('f1_raw_csv', 'lap_times') }}
+    {{ source('f1_raw', 'lap_times') }}

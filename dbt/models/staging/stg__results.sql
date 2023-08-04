@@ -4,12 +4,12 @@ select
     driverId as driver_id,
     constructorId as constructor_id,
     number as car_number,
-    grid as grid_position,
-    cast(position as int64) as final_position,
+    cast(grid as int64) as grid_position,
+    position as final_position,
     positionText as position_text,
-    positionOrder as position_order,
-    points,
-    laps,
+    cast(positionOrder as int64) as position_order,
+    cast(points as float64) as points,
+    cast(laps as int64) as num_laps,
     time as race_duration,
     milliseconds,
     fastestLap as fastest_lap_number,
@@ -17,4 +17,4 @@ select
     fastestLapTime as fastest_lap_time,
     fastestLapSpeed as fastest_lap_top_speed,
     statusId as status_id
-from {{ source('f1_raw_csv', 'results') }} 
+from {{ source('f1_raw', 'results') }} 

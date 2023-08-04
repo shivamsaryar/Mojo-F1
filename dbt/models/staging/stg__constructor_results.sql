@@ -2,7 +2,6 @@ select
     constructorResultsId as constructor_results_id,
     raceId as race_id,
     constructorId as constructor_id,
-    points,
-    status
+    cast(points as float64) as points
 from 
-    {{ source('f1_raw_csv', 'constructor_results') }}
+    {{ source('f1_raw', 'constructor_results') }}

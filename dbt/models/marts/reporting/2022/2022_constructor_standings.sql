@@ -15,10 +15,9 @@ r as (
 select 
     r.year,
     c.name,
-    c.nationality,
     sum(cr.points) as season_points
 from c left join cr on c.constructor_id = cr.constructor_id
 left join r on cr.race_id = r.race_id
-where year = 2021
-group by 1,2,3
-order by 4 desc
+where year = 2022
+group by 2,1
+order by 3 desc
