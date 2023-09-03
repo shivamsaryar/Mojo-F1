@@ -1,7 +1,7 @@
 select 
     circuitId as circuit_id,
     circuitRef as circuit_ref,
-    name,
+    cast(name as string) as name,
     location,
     country,
     lat as latitude,
