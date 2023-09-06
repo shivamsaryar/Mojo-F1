@@ -4,7 +4,9 @@ from pathlib import Path
 import time
 import google.auth
 
-import configSchema
+# import schemaConfig_csv
+# import schemaConfig_defined
+import schemaConfig_strings
 
 def table_reference(project_id, dataset_id, table_id):
     dataset_ref = bigquery.DatasetReference(project_id, dataset_id)
@@ -17,7 +19,7 @@ def delete_dataset_tables(project_id, dataset_id):
         bq_client.delete_table(table)
     print('Tables deleted.')
 
-def upload_csv(client, table_ref, csv_file):
+def upload_csv(client, table_name, table_ref, csv_file):
     load_job_config = bigquery.LoadJobConfig(
         source_format = bigquery.SourceFormat.CSV,
         skip_leading_rows = 1,
@@ -26,7 +28,8 @@ def upload_csv(client, table_ref, csv_file):
         write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE
     )
     
-    load_job_config.schema = configSchema.create_schema(csv_file)
+    # load_job_config.schema = schemaConfig_csv.create_schema(csv_file)
+    load_job_config.schema = schemaConfig_strings.getSchema(table_name)
     
     with open(csv_file, 'rb') as source_file:
         upload_job = bq_client.load_table_from_file(
@@ -36,14 +39,8 @@ def upload_csv(client, table_ref, csv_file):
             job_config=load_job_config
         )
 
-    #with upload_job.state != 'DONE':
-    #    time.sleep(2)
-    #    upload_job.reload()
-    #    print(upload_job.state)
-    #print(upload_job.result())
-
 project_id = 'mojo-f1'
-dataset_id = 'f1_raw_from_csv'
+dataset_id = 'raw_csv_load'
 
 # Create credentials with Drive & BigQuery API scopes.
 # Both APIs must be enabled for your project before running this code.
@@ -60,6 +57,7 @@ data_file_folder = Path('/Users/shivamsaryar/Documents/GitHub/Mojo-F1/bigquery-u
 
 for file in os.listdir(data_file_folder):
     if file.endswith('.csv'):
+        print("----")
         print('Processing file: {0}'.format(file))
         
         table_name = str(os.path.splitext(file)[0])
@@ -71,7 +69,6 @@ for file in os.listdir(data_file_folder):
         table_ref = project_id + "." + dataset_id + "." + table_name
         print("table_ref: ", table_ref)
         
-        upload_csv(bq_client, table_ref, csv_file)
-        print("----")
+        upload_csv(bq_client, table_name, table_ref, csv_file)
 
-print("------CSV files uploaded successfully.------")    
+print("------CSV files uploaded successfully.------")

@@ -16,7 +16,7 @@ credentials, project = google.auth.default (
 bq_client = bigquery.Client(credentials=credentials, project='mojo-f1')
 
 #Configure BigQuery dataset ID and reference
-dataset_id = "mojo-f1.f1_raw_gsheets"
+dataset_id = "mojo-f1.raw_gsheets_external"
 dataset_ref = bq_client.get_dataset(dataset_id)
 
 # Configure Google Sheets connection
